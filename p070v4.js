@@ -1,5 +1,8 @@
 let listCertsByCnpj = [];
 var Global = {cnpj:''};
+let fieldLoader = document.createElement('img');
+fieldLoader.setAttribute('src','../Common/Images/v3/loading_ajax.gif');
+fieldLoader.setAttribute('id', 'zeevFieldLoader');
 
 $(document).ready(function(){
     //Se a tabela for fazia libera os campos para ser preenchidos 
@@ -392,6 +395,22 @@ $(document).ready(function(){
   	//Fim alteraÃƒÂ§ÃƒÂµes P111 2057680      
 
       showOrHideTblCerProd();
+      
+
+      let fldCnpjSolicitanteP065 = document.querySelector('[xname=inpvarcnpjsolicitantep065]');
+      if(fldCnpjSolicitanteP065)
+        fldCnpjSolicitanteP065.style.display='none';
+
+
+        let empvinculada = document.querySelector('[xname=inpempresasVinculadasRequisitante]');
+
+        if(empvinculada){
+            empvinculada.addEventListener('change',()=>{
+                document.querySelector('[xname=inpsolicitacaoTipoImportacao]').value='';
+                  document.querySelector('[xname=inpsolicitacaoTipoImportacao]').dispatchEvent(new Event('change'));    
+              });
+        }
+
 });
 
 function changeRadioCNPJCertificado(){
@@ -441,10 +460,7 @@ function verificaSolicitacao(){
                    }                    
                    getRegistro();
                 } 
-            }
-            else{
-                (async ()=>{listCertsByCnpj = await GetCertLink()})();
-            }                   
+            }               
     }else{
         certificadoReady(true);
         hideField('cnpjsolicit_da_certif');
@@ -918,6 +934,7 @@ function p70_ChangeTipoImportacao(codTipo){
 
         *Fim P111 1911294
     */
+    document.querySelector('[xname=inpsolicitacaoNumeroCertificado]').before(fieldLoader);
 
     $.post('../Applications/dipac/p70/SelectTipoImportacao.aspx?inpCodTipo=' + codTipo.value, function(data){
         
@@ -984,7 +1001,9 @@ function p70_ChangeTipoImportacao(codTipo){
                 *Fim P111 1911294
             */
         });
-    });
+
+        fieldLoader.remove();
+    });    
 }
 
 function p70_HideFieldsTipoImportacao(){
@@ -1650,21 +1669,30 @@ function hideTblCertProd(){
 
     linesToRemove[0].querySelectorAll('input').forEach(i=>i.value='');    
     tblcertProd.style.display='none';
-    document.querySelector('[xname=inpsolicitacaoNumeroCertificado]').setAttribute('required','N');     
+    
+    let numCertificado = document.querySelector('[xname=inpsolicitacaoNumeroCertificado]');
+    numCertificado.setAttribute('required','N');         
+    document.querySelector('[xname=inplinkProcert]').setAttribute('required','N');
 }
 
 function showTblCertProd(){
     let tblcertProd=document.querySelector('#tblcertprod');
     tblcertProd.addEventListener('DOMSubtreeModified',tblCertProdInsertNewRow);
     tblcertProd.style.display='table';
-    document.querySelector('[xname=inpsolicitacaoNumeroCertificado]').setAttribute('required','S');    
+    let numCertificado = document.querySelector('[xname=inpsolicitacaoNumeroCertificado]');
+    numCertificado.setAttribute('required','S');    
+    document.querySelector('[xname=inplinkProcert]').setAttribute('required','S');
 }
 
 async function GetCertLink(){
 
-    let cnpj = document.querySelector('[xname=inpcnpj]').value;                   
-    let url = `../applications/proxy.aspx?http://ws-prodcert.inmetro.gov.br/Certificado.svc/REST/ObterCertificadosPorCertificador/?situacao=Ativo&cpfCnpj=${cnpj}`
     let result = [];
+    let cnpj = document.querySelector('[xname=inpvarcnpjsolicitantep065]').value;
+
+    if(cnpj==null || cnpj =='')
+        return result;
+     
+    let url = `../applications/proxy.aspx?http://ws-prodcert.inmetro.gov.br/Certificado.svc/REST/ObterCertificadosPorCertificador/?situacao=Ativo&cpfCnpj=${cnpj}`    
 
     let response = await fetch(url);
     let json = await response.json();
@@ -1679,14 +1707,22 @@ async function GetCertLink(){
     return result;
 }
 
-function fillProcertField(e)
+async function fillProcertField(e)
 {
     let certId = e.value;
-    let result = listCertsByCnpj.filter(i=>i.cert.toLowerCase()==certId.toLowerCase()); 
+    let linkProcertField = e.closest('tr').querySelector('[xname=inplinkProcert]');
     
+    if(listCertsByCnpj.length==0){
+        linkProcertField.before(fieldLoader);
+        listCertsByCnpj = await GetCertLink();
+        fieldLoader.remove();
+    }        
+
+    let result = listCertsByCnpj.filter(i=>i.cert.toLowerCase()==certId.toLowerCase()); 
+
     if(result.length >0){
-        e.closest('tr').querySelector('[xname=inplinkProcert]').value=result[0].address;
-    }
+        linkProcertField.value=result[0].address;        
+    }    
 }
 
 function showOrHideTblCerProd(){
