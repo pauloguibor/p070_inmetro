@@ -20,14 +20,14 @@ $(document).ready(function(){
 		$('#tblCentrosDistribuicao td:nth-child(8), th:nth-child(8)').hide();
     }
 
-	//mostra a tabela EndereÃƒÂ§os Adicionais 
+	//mostra a tabela EndereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§os Adicionais 
     // 183797 - Leandro
     if ($("#inpDsFlowElementAlias").val() == "T01") {
         hideTableCD();
 		
-		//Inicio alteraÃƒÂ§ÃƒÂµes P111 2057680
+		//Inicio alteraÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes P111 2057680
 		document.querySelector('[xname="inpregistrosCnpj"]').closest('table').style.display = 'none';
-		//Fim alteraÃƒÂ§ÃƒÂµes P111 2057680
+		//Fim alteraÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes P111 2057680
 		
 		if ($('inp:tipoDocumento').val() == 'CNPJ'){
 			ControlFields($('inp:cnpj'), 'attr', 'maxlength', 14, 0);
@@ -38,18 +38,18 @@ $(document).ready(function(){
 		}
     }  
 
-	//Esconde o botÃƒÂ£o excluir da tabela dos centros de distribuiÃƒÂ§ÃƒÂ£o
+	//Esconde o botÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o excluir da tabela dos centros de distribuiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o
 	if ($("#inpDsFlowElementAlias").val() != "T01"  && $("inp:cnpjCD").val() != "") 
 	{
 		$('#tblCentrosDistribuicao button:not(#BtnInsertNewRow)').hide();
 
 		//Se campo solicitacaoNumeroRegistro for igual vazio
-		//tabela para adicionar EndereÃƒÂ§os Adicionais - Centros de DistribuiÃƒÂ§ÃƒÂ£o
+		//tabela para adicionar EndereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§os Adicionais - Centros de DistribuiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o
 		if ($("inp:solicitacaoNumeroRegistro").val() != ""){
 			hideTableCD();
 		}else
 		{
-			// Bloqueia os campos das linhas jÃƒÂ¡ preenchidas
+			// Bloqueia os campos das linhas jÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ preenchidas
 			$('inp:cnpjCD').prop('readonly',true);
 			$('inp:logradouroCD').prop('readonly',true);
 			$('inp:numeroCD').prop('readonly',true);
@@ -64,7 +64,7 @@ $(document).ready(function(){
 		}
 	}
 
-	// Adiciona o evento de liberar o preenchimento da ÃƒÂºltima linha no botÃƒÂ£o de inserir
+	// Adiciona o evento de liberar o preenchimento da ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºltima linha no botÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o de inserir
 	// No Chrome, Mozilla
 	if($('#tblCentrosDistribuicao tr:first button')[0]!=undefined)
 	{
@@ -123,7 +123,7 @@ $(document).ready(function(){
             showOrHideTblCerProd();
         }
 	    if($('inp:solicitacaoTipoImportacao').val() == 13){
-	        $('#td0nomeOCP').text('Nome do laboratÃƒÂ³rio');
+	        $('#td0nomeOCP').text('Nome do laboratÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³rio');
 	        $('#td0solicitacaoNumeroRegistro').show();
 			$('#td1solicitacaoNumeroRegistro').show();
 			$('inp:solicitacaoNumeroRegistro').show();
@@ -133,7 +133,7 @@ $(document).ready(function(){
 	    }
     });
 
-    //Esconde a tabela se o campo NÃƒÂºmero do Registro do Produto no Inmetro quando preechido
+    //Esconde a tabela se o campo NÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºmero do Registro do Produto no Inmetro quando preechido
 	$('inp:solicitacaoNumeroRegistro').keyup(function () {
 		if($('inp:solicitacaoNumeroRegistro').val() == "" && $("inp:solicitacaoTipoImportacao").find("option:selected").val() == "14" ) 
 		{
@@ -277,9 +277,9 @@ $(document).ready(function(){
     var solicitacaoText2 = 'Produtos do programa de an\u00e1lise parametrizada'
     var solicitacao = $('inp:solicitacaoTipoImportacao').find(':selected').text();
     if(alias == 'T04' && (solicitacao == solicitacaoText1 || solicitacao == solicitacaoText1+' ' || solicitacao == solicitacaoText2 || solicitacao == solicitacaoText2+' ')){
-        var cnpj = $('inp:cnpjcertificado').val();
+        var cnpj = isNwBusinessRules ? $("inp:cnpj") : $('inp:cnpjcertificado').val()
 
-        // Flag para verificar se vamos impedir ou nÃƒÂ£o a sequÃƒÂªncia do processo
+        // Flag para verificar se vamos impedir ou nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o a sequÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªncia do processo
         var flagLoad = false;
         
         cnpj = cnpj.replace(/\./g,"");
@@ -290,14 +290,17 @@ $(document).ready(function(){
         
         if(cnpj == ''){
             certificadoReady(false);
-        }else{
+        } else if (solicitacao == solicitacaoText1 && isNwBusinessRules) {
+            certificadoReady(true)
+        }
+        else {
 
             data = {
             situacao : 'Ativo',
             cpfCnpj : cnpj
             }
             //JSONP
-            //Caso retorne e o json nÃƒÂ£o possuir .Messange, significa que retornou uma lista de certificados;
+            //Caso retorne e o json nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o possuir .Messange, significa que retornou uma lista de certificados;
             $.ajax({
                type: 'GET',
                 url: '../applications/proxy.aspx?http://ws-prodcert.inmetro.gov.br/Certificado.svc/REST/ObterCertificadosPorCertificador/?callback=?',
@@ -309,7 +312,7 @@ $(document).ready(function(){
                 success: function(json) { 
                     if(json.Message == undefined || (isIE() == true && json.Message !== null)){
                         for(var i = 0; i < json.length; i++){
-                            // Se o nÃƒÂºmero do atestado de conformidade jÃƒÂ¡ estiver preenchido e for vÃƒÂ¡lido
+                            // Se o nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºmero do atestado de conformidade jÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ estiver preenchido e for vÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡lido
                             if(json[i].Numero == $('inp:solicitacaoNumeroCertificado').val()){
                                 flagLoad = true;
 
@@ -317,7 +320,7 @@ $(document).ready(function(){
                         }
                     }
                     
-                    // Se ÃƒÂ© um certificado vÃƒÂ¡lido nÃƒÂ£o bloqueia a sequÃƒÂªncia do processo
+                    // Se ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© um certificado vÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡lido nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o bloqueia a sequÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªncia do processo
                     if(flagLoad)
                     {
                         // Remove a mensagem de obrigatoriedade do certificado
@@ -365,7 +368,7 @@ $(document).ready(function(){
 
     // Demanda 474666
     /*if($('inp:solicitacaoTipoImportacao').val() == 13){
-        $('#td0nomeOCP').text('Nome do laboratÃƒÂ³rio');
+        $('#td0nomeOCP').text('Nome do laboratÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³rio');
         $('#td0solicitacaoNumeroRegistro').show();
         $('#td1solicitacaoNumeroRegistro').show();
         $('inp:solicitacaoNumeroRegistro').show();
@@ -378,7 +381,7 @@ $(document).ready(function(){
 	
     checkCD();
 
-    //FunÃƒÂ§ÃƒÂ£o para esconder o novo campo de link do registro se o cÃƒÂ³digo atual for menor que o cÃƒÂ³digo de virada.
+    //FunÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o para esconder o novo campo de link do registro se o cÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³digo atual for menor que o cÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³digo de virada.
     //Demanda: 597309.
     //Data: 04/07/2016.
     //Desenvolvedor: Igor Becker.
@@ -388,11 +391,11 @@ $(document).ready(function(){
         if (this.value != '14' || this.value != '15') { p70_HideFields('linkParaRegistroDeObjeto', true); }
     });
 	
-	//Inicio alteraÃƒÂ§ÃƒÂµes do P111 2057680
+	//Inicio alteraÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes do P111 2057680
 	showHideTblSolicitacaoNumeroRegistro();
 	document.getElementById("alertaCNPJ").style.display = 'none';
 	document.querySelector('[xname="inpregistrosCnpj"]').style.display = 'none';
-  	//Fim alteraÃƒÂ§ÃƒÂµes P111 2057680      
+  	//Fim alteraÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes P111 2057680      
 
       showOrHideTblCerProd();
       
@@ -505,7 +508,7 @@ function getRegistro(){
     cpfCnpj : cnpj
     }
     //JSONP
-    /*Caso retorn e o json nÃƒÂ£o possuir .Messange, ÃƒÂ© que retornou uma lista de certificados;*/
+    /*Caso retorn e o json nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o possuir .Messange, ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© que retornou uma lista de certificados;*/
     $.ajax({
        type: 'GET',
         url: '../applications/proxy.aspx?http://ws-prodcert.inmetro.gov.br/Certificado.svc/REST/ObterCertificadosPorCertificador/?callback=?',
@@ -519,13 +522,13 @@ function getRegistro(){
                 for(var i = 0; i < json.length; i++){
 
                     $('#divSuggestsolicitacaoNumeroCertificado').append('<li id="'+json[i].Numero+'" endereco="' + json[i].Endereco + '"  onclick="atestadoOnClick(this);" class="suggest_link">'+json[i].Numero+'</li>');
-                    // Barranco - 09/02/2015 Se possui um certificado preenchido, valida se ÃƒÂ© um dos retornados. Neste caso nÃƒÂ£o bloqueia o processo
+                    // Barranco - 09/02/2015 Se possui um certificado preenchido, valida se ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© um dos retornados. Neste caso nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o bloqueia o processo
                     if(json[i].Numero == $('inp:solicitacaoNumeroCertificado').val()){
                         flag = true;
                     }
                 }
                 
-                // Barranco - 09/02/2015 - Se o valor preenchido ÃƒÂ© um certificado vÃƒÂ¡lido, nÃƒÂ£o bloqueia a sequÃƒÂªncia do processo
+                // Barranco - 09/02/2015 - Se o valor preenchido ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© um certificado vÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡lido, nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o bloqueia a sequÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªncia do processo
                 if(flag)
                 {
                     certificadoReady(true);
@@ -533,11 +536,11 @@ function getRegistro(){
                     $('#divSuggestsolicitacaoNumeroCertificado li').hide();
                     return;
                 }
-                // SenÃƒÂ£o impede a sequÃƒÂªncia
+                // SenÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o impede a sequÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªncia
                 else
                 {
                     certificadoReady(false);
-                    // Adicionando a mensagem de que nÃƒÂ£o foram encontrados os registros
+                    // Adicionando a mensagem de que nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o foram encontrados os registros
                     $('#divSuggestsolicitacaoNumeroCertificado').show();
                     $('#divSuggestsolicitacaoNumeroCertificado li').hide();
                     $('#semRegistroExistente').show();
@@ -615,7 +618,7 @@ function certificadoReady(bool) {
         var field = $('inp:solicitacaoNumeroCertificado').val();
         if (bool) {
             certificadoControllers("");
-        }else if((text == condicao || text == condicao+' ') && field == ""){ /* CondiÃƒÂ§ÃƒÂ£o quando for analise parametrisada*/
+        }else if((text == condicao || text == condicao+' ') && field == ""){ /* CondiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o quando for analise parametrisada*/
             certificadoControllers("");
         }else{
             certificadoControllers("N\u00e3o ser\u00e1 poss\u00edvel prosseguir com a solicita\u00e7\u00e3o sem o preenchimento do n\u00famero do atestado de conformidade.");
@@ -769,23 +772,23 @@ function p70_BlurNCM(){
                 if($(data).find('ncm') && $(data).find('grupo'))
                 {
 
-                    //==============================INICIO DEMANDA 76312=============Rodrigo BeirÃƒÂ£o 15/05/2013=================================//
+                    //==============================INICIO DEMANDA 76312=============Rodrigo BeirÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o 15/05/2013=================================//
                     
                     //Zera o campo 'Grupo'
                     $('inp:solicitacaoGrupo').val('');
                     $('div[xid="divsolicitacaoGrupo"]').text('');
                     $('#td1solicitacaoGrupo').css({fontWeight: 'bold'});    
                     
-                    //Mostra o campo 'Grupo' e 'DescriÃƒÂ§ÃƒÂ£o'
+                    //Mostra o campo 'Grupo' e 'DescriÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o'
                     $("inp:solicitacaoNCM_desc").closest("tr").show();
                     $("inp:solicitacaoGrupo").closest("tr").show();
 
-                    //Testa se hÃƒÂ¡ destaque, isso vai determinar os campos a serem preenchidos e a maneira que o campo 'Grupo' vai ser populado
+                    //Testa se hÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ destaque, isso vai determinar os campos a serem preenchidos e a maneira que o campo 'Grupo' vai ser populado
                     var TemDestaque = false;
 
-                    if($(data).find('destaque').text().length == 0) //NÃƒÂ£o existe Destaque
+                    if($(data).find('destaque').text().length == 0) //NÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o existe Destaque
                     {
-                        //O campo 'Destaques NCM' nÃƒÂ£o aparece e nÃƒÂ£o precisa ser preenchido
+                        //O campo 'Destaques NCM' nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o aparece e nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o precisa ser preenchido
                         $("inp:destaquesNCM").closest("tr").hide();
                         $("inp:destaquesNCM")[0].setAttribute('required', 'N');
                         
@@ -794,7 +797,7 @@ function p70_BlurNCM(){
 
                     else //Existe destaque
                     {
-                        //Mostra o campo 'Destaques NCM' e torna obrigatÃƒÂ³rio o preenchimento dele
+                        //Mostra o campo 'Destaques NCM' e torna obrigatÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³rio o preenchimento dele
                         $("inp:destaquesNCM").closest("tr").show();
                         $("inp:destaquesNCM")[0].setAttribute('required', 'S');
                         $("#td0destaquesNCM").attr("style", "color:red")
@@ -833,7 +836,7 @@ function p70_BlurNCM(){
                     $('div[xid="divsolicitacaoNCM_desc"]').text( $(data).find('ncm').first().text() );
                     $('#td1solicitacaoNCM_desc').css({fontWeight: 'bold'});
                     
-                    //=========EDITADO DURANTE DEMANDA 76312 - Agora caso exista 'Destaque', o campo 'Grupo' ÃƒÂ© populado com o grupo do Destaque
+                    //=========EDITADO DURANTE DEMANDA 76312 - Agora caso exista 'Destaque', o campo 'Grupo' ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© populado com o grupo do Destaque
                     if(TemDestaque)
                     {
 
@@ -862,7 +865,7 @@ function p70_BlurNCM(){
 
                     }
 
-                    else //Caso nÃƒÂ£o existe Destaque o campo ÃƒÂ© preenchido como antigamente.
+                    else //Caso nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o existe Destaque o campo ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© preenchido como antigamente.
                     {
                         $('inp:solicitacaoGrupo').val( $(data).find('grupo').first().text() );
                         $('div[xid="divsolicitacaoGrupo"]').text($(data).find('grupo').first().text());
@@ -928,7 +931,7 @@ function p70_ChangeTipoImportacao(codTipo){
     p70_HideFieldsTipoImportacao();
      /*
         *Inicio P111 1911294
-        *RemoÃƒÂ§ÃƒÂ£o da obrigatoriedade de inserÃƒÂ§ÃƒÂ£o de anexos
+        *RemoÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o da obrigatoriedade de inserÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o de anexos
 
         p70_RemoveRequiredFilesTipoImportacao();
 
@@ -975,7 +978,7 @@ function p70_ChangeTipoImportacao(codTipo){
                         cryo_SetObjectPropertyValue(cryo_GetElementByXname("inp"+p70camposTipoImportacao[i]), "required", "S");
                     }
                     
-                    //Tira a obrigatoriedade do "NÃƒÂºmero do Registro do Produto no Inmetro"
+                    //Tira a obrigatoriedade do "NÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºmero do Registro do Produto no Inmetro"
                     cryo_SetObjectPropertyValue(cryo_GetElementByXname("inpsolicitacaoNumeroRegistro"), "required", "N"); 
                 }
             }
@@ -984,7 +987,7 @@ function p70_ChangeTipoImportacao(codTipo){
                 $("inp:solicitacaoNumeroRegistro")[0].setAttribute("required", "S");  
                 $("#td0solicitacaoNumeroRegistro").append('<span id="asteriscoSolicitacaoNumeroRegistro" style="color: red;"> *</span>');
             }else{
-                    //Tira a obrigatoriedade do "NÃƒÂºmero do Registro do Produto no Inmetro"
+                    //Tira a obrigatoriedade do "NÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºmero do Registro do Produto no Inmetro"
                     cryo_SetObjectPropertyValue(cryo_GetElementByXname("inpsolicitacaoNumeroRegistro"), "required", "N"); 
                     $("#asteriscoSolicitacaoNumeroRegistro").remove();
                      showTableCD();
@@ -992,7 +995,7 @@ function p70_ChangeTipoImportacao(codTipo){
 
             /*
                 *Inicio P111 1911294
-                *RemoÃƒÂ§ÃƒÂ£o da obrigatoriedade de inserÃƒÂ§ÃƒÂ£o de anexos
+                *RemoÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o da obrigatoriedade de inserÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o de anexos
                     for(j=0;j<p70arquivosTipoImportacao.length;j++)
                     {
                         p70_RequiredFile(p70arquivosTipoImportacao[j],'S');
@@ -1049,7 +1052,7 @@ function p70_HideFields(FieldsToHide, value){
 
 /*
     *Inicio P111 1911294
-    *RemoÃƒÂ§ÃƒÂ£o da obrigatoriedade de inserÃƒÂ§ÃƒÂ£o de anexos     
+    *RemoÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o da obrigatoriedade de inserÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o de anexos     
 
     function p70_RemoveRequiredFilesTipoImportacao(){
         
@@ -1182,13 +1185,13 @@ function showTableCD(){
     $('#tblCentrosDistribuicao').show();
     $('#BtnInsertNewRow').prop('disabled',false);
     $('#tblCentrosDistribuicao button:not(#BtnInsertNewRow)').prop('disabled',false);
-    $("table[id='EndereÃƒÂ§o eletrÃƒÂ´nico prÃƒÂ³prio de venda na internet']").show();
+    $("table[id='EndereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o eletrÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â´nico prÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³prio de venda na internet']").show();
     $("#divInfoCD").show();
 }
 
 function hideTableCD(){
     $('#tblCentrosDistribuicao').hide();
-    $("table[id='EndereÃƒÂ§o eletrÃƒÂ´nico prÃƒÂ³prio de venda na internet']").hide();
+    $("table[id='EndereÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§o eletrÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â´nico prÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³prio de venda na internet']").hide();
     $("#divInfoCD").hide();
 
 }
@@ -1198,23 +1201,23 @@ function blurCnpjCd(objCnpjCD){
 	// Valor do campo cnpjCD que disparou o evento
 	cnpjCD = $(objCnpjCD).val();
 	
-	// CNPJ invÃƒÂ¡lido
+	// CNPJ invÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡lido
 	if(!isValidCnpjCD(objCnpjCD.val())){
 		
-		// Se nÃƒÂ£o for vazio
+		// Se nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o for vazio
 		if(objCnpjCD.val()!='')
 		{
-			alert("O CNPJ inserido ÃƒÂ© inv\u00e1lido!");
+			alert("O CNPJ inserido ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© inv\u00e1lido!");
 			
 			// Limpa o valor do CNPJ
 			objCnpjCD.val('');
 		}
 		
-		// Se o CNPJ NÃƒÆ’O possuir valor, centro ativo deve ficar vazio.		
+		// Se o CNPJ NÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢O possuir valor, centro ativo deve ficar vazio.		
 		// Limpa o input ou select-one
 		$(objCnpjCD).parent('td').parent('tr').find(':input[xname="inpcentroAtivo"]').val('');
 		
-		// Remove a obrigatoriedade dos campos do centro de distribuiÃƒÂ§ÃƒÂ£o da mesma linha do cnpj
+		// Remove a obrigatoriedade dos campos do centro de distribuiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o da mesma linha do cnpj
 		$(objCnpjCD).parent('td').parent('tr').find('input[xname="inplogradouroCD"]')[0].setAttribute('required','N');
 		$(objCnpjCD).parent('td').parent('tr').find('input[xname="inpnumeroCD"]')[0].setAttribute('required','N');
 		$(objCnpjCD).parent('td').parent('tr').find('input[xname="inpbairroCD"]')[0].setAttribute('required','N');
@@ -1222,14 +1225,14 @@ function blurCnpjCd(objCnpjCD){
 		$(objCnpjCD).parent('td').parent('tr').find('select[xname="inpufCD"]')[0].setAttribute('required','N');
 		$(objCnpjCD).parent('td').parent('tr').find('input[xname="inpcepCD"]')[0].setAttribute('required','N');
 	}
-	// CNPJ ÃƒÂ© vÃƒÂ¡lido e tem valor
+	// CNPJ ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© vÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡lido e tem valor
 	else
 	{	
 		// Se o CNPJ possuir valor, entao o campo centro ativo daquela linha deve ser igual sim.
 		// Preenche o input ou select-one
 		$(objCnpjCD).parent('td').parent('tr').find(':input[xname="inpcentroAtivo"]').val('Sim');
 		
-		// Adiciona a obrigatoriedade dos campos do centro de distribuiÃƒÂ§ÃƒÂ£o da mesma linha do cnpj
+		// Adiciona a obrigatoriedade dos campos do centro de distribuiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o da mesma linha do cnpj
 		$(objCnpjCD).parent('td').parent('tr').find('input[xname="inplogradouroCD"]')[0].setAttribute('required','S');
 		$(objCnpjCD).parent('td').parent('tr').find('input[xname="inpnumeroCD"]')[0].setAttribute('required','S');
 		$(objCnpjCD).parent('td').parent('tr').find('input[xname="inpbairroCD"]')[0].setAttribute('required','S');
@@ -1239,7 +1242,7 @@ function blurCnpjCd(objCnpjCD){
 	}
 }
 
-// Usado para validar o CNPJ dos centros de distribuiÃƒÂ§ÃƒÂ£o
+// Usado para validar o CNPJ dos centros de distribuiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o
 function isValidCnpjCD(cnpj) {
 
     cnpj = cnpj.replace(/[^\d]+/g,'');
@@ -1295,12 +1298,12 @@ function isValidCnpjCD(cnpj) {
 
 
 
-//Regra de implementaÃƒÂ§ÃƒÂ£o de link do Registro
-//Se o valor do tipo de importaÃƒÂ§ÃƒÂ£o = 14: entÃƒÂ£o o nÃƒÂºmero de registro nÃƒÂ£o ÃƒÂ© obrigatÃƒÂ³rio, mas se o nÃƒÂºmero de registro for preenchido gera link, caso contrÃƒÂ¡rio nÃƒÂ£o.
-//Se o valor do tipo de importaÃƒÂ§ÃƒÂ£o = 15: entÃƒÂ£o o nÃƒÂºmero de registro ÃƒÂ© obrigatÃƒÂ³rio e gera o link.
+//Regra de implementaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o de link do Registro
+//Se o valor do tipo de importaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o = 14: entÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o o nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºmero de registro nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© obrigatÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³rio, mas se o nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºmero de registro for preenchido gera link, caso contrÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡rio nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o.
+//Se o valor do tipo de importaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o = 15: entÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o o nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºmero de registro ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© obrigatÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³rio e gera o link.
 //Demanda: 597309.
 //Data: 04/07/2016.
-//ModificaÃƒÂ§ÃƒÂ£o: 23/09/2016
+//ModificaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o: 23/09/2016
 //Desenvolvedor: Igor Becker.
 //Alterada em 13/12/2021 P111 - 2057680
 function fShowRegistryLink(obj) {
@@ -1443,7 +1446,7 @@ function fShowRegistryLink(obj) {
 	}		
 }
 
-//FunÃƒÂ§ÃƒÂ£o para limpar o novo campo de link do registro.
+//FunÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o para limpar o novo campo de link do registro.
 //Demanda: 597309.
 //Data: 04/07/2016.
 //Desenvolvedor: Igor Becker.
@@ -1452,7 +1455,7 @@ function fCleanVar_linkRegistro() {
 	$($('inp:linkParaRegistroDeObjeto').closest('tr').find('td')[2]).find('a').remove();
 }
 
-//FunÃƒÂ§ÃƒÂ£o para alterar a quantidade mÃƒÂ¡xima de caracteres do campo CPF/CNPJ
+//FunÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o para alterar a quantidade mÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡xima de caracteres do campo CPF/CNPJ
 //Demanda: 1043707.
 //Data: 23/07/2019.
 //Desenvolvedor: Lucas Dapper.
@@ -1470,13 +1473,13 @@ function Change_Mask(TipoDoc) {
 	
 }
 
-//Esta funÃƒÂ§ÃƒÂ£o realiza o controle para bloquear/liberar a ediÃƒÂ§ÃƒÂ£o campos dor formulÃƒÂ¡rio, como tambÃƒÂ©m desabilita a obrigaÃƒÂ§ÃƒÂ£o de preenchimento do campo.
+//Esta funÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o realiza o controle para bloquear/liberar a ediÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o campos dor formulÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡rio, como tambÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©m desabilita a obrigaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o de preenchimento do campo.
 // id => Localizador do agrupamento
-// TypeDefinition => FunÃƒÂ§ÃƒÂ£o de atribuiÃƒÂ§ÃƒÂ£o a ser utilizada (ex: 'attr' ou 'css')
-// Type => Tipo do parÃƒÂ¢metro (ex: 'readonly' ou 'pointer-events')
-// Value => O valor do parÃƒÂ¢mtro (Ex: false, true, 'none')
-// control => Controle: '1' para desabilitar a obrigatoriedade dos campos e '2' para exigir o preenchimento caso configurado no formulÃƒÂ¡rio
-// Exemplo de chamada da funÃƒÂ§ÃƒÂ£o => ControlFields($('#OrganizaÃƒÂ§ÃƒÂ£o').find('input'), 'attr', 'readonly', true, 1);
+// TypeDefinition => FunÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o de atribuiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o a ser utilizada (ex: 'attr' ou 'css')
+// Type => Tipo do parÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢metro (ex: 'readonly' ou 'pointer-events')
+// Value => O valor do parÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢mtro (Ex: false, true, 'none')
+// control => Controle: '1' para desabilitar a obrigatoriedade dos campos e '2' para exigir o preenchimento caso configurado no formulÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡rio
+// Exemplo de chamada da funÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o => ControlFields($('#OrganizaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o').find('input'), 'attr', 'readonly', true, 1);
 //Data: 23/07/2019.
 //Desenvolvedor: Lucas Dapper.
 function ControlFields(id,TypeDefinition, Type, Value, control){
@@ -1487,11 +1490,11 @@ function ControlFields(id,TypeDefinition, Type, Value, control){
 		var field = this;
 		  
 		if(control == 1){
-			//Salvar a informaÃƒÂ§ÃƒÂ£o se o campo ÃƒÂ© obrigatÃƒÂ³rio ou nÃƒÂ£o em uma variÃƒÂ¡vel
+			//Salvar a informaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o se o campo ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© obrigatÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³rio ou nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o em uma variÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡vel
 			if (field.getAttribute("xrequired") === null) {
 					field.setAttribute("xrequired", field.getAttribute("required"));
 			}	
-			// Marcar o campo como nÃƒÂ£o obrigatÃƒÂ³rio
+			// Marcar o campo como nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o obrigatÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³rio
 			field.setAttribute("required", "N");
 		}
 		if(control == 2){
@@ -1506,7 +1509,7 @@ function ControlFields(id,TypeDefinition, Type, Value, control){
 	});
 }
 
-// Inicio FunÃƒÂ§ÃƒÂµes adcionadas pelo P111 2057680
+// Inicio FunÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes adcionadas pelo P111 2057680
 function showHideTblSolicitacaoNumeroRegistro() {
   if (document.querySelector('[xname="inpsolicitacaoTipoImportacao"]').value == "14" || document.querySelector('[xname="inpsolicitacaoTipoImportacao"]').value == "15"){
     document.getElementById("tblSolicitacaoNumeroRegistro").style.display = '';
@@ -1636,7 +1639,7 @@ function recarregaCnpj()
 {
 	$('inp:cnpj').trigger('change');
 };	
-// fim funÃƒÂ§ÃƒÂµes adcionadas pelo P111 2057680
+// fim funÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes adcionadas pelo P111 2057680
 //Inicio Customizacao Certificado produto
 function tblCertProdInsertNewRow(){
     let tblcertProd=document.querySelector('#tblcertprod');
